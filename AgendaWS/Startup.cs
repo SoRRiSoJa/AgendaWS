@@ -15,6 +15,7 @@ namespace AgendaWS
     using AgendaWS.Domain.Models;
     using AgendaWS.Domain.Repositories;
     using AgendaWS.Domain.Services;
+    using AgendaWS.Middlewares;
     using AgendaWS.Persistence.Repositories;
     using AgendaWS.Service;
     using AgendaWS.Validators;
@@ -71,7 +72,7 @@ namespace AgendaWS
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseNotOkResponseMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
