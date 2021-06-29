@@ -46,7 +46,7 @@ namespace AgendaWS.Service
             return await _agendaRepository.Listar();
         }
 
-        public async Task<Agenda> ObterPorNome(string nome)
+        public async Task<IEnumerable<Agenda>> ObterPorNome(string nome)
         {
             if (String.IsNullOrEmpty(nome))
             {
@@ -55,7 +55,7 @@ namespace AgendaWS.Service
             return await _agendaRepository.ObterPorNome(nome);
         }
 
-        public async Task<Agenda> ObterPorNumero(string numero)
+        public async Task<IEnumerable<Agenda>> ObterPorNumero(string numero)
         {
             if (String.IsNullOrEmpty(numero))
             {

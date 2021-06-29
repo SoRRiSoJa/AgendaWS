@@ -6,8 +6,17 @@ namespace AgendaWS.Persistence.Repositories
 {
     using AgendaWS.Domain.Models;
     using AgendaWS.Domain.Repositories;
+    using AgendaWS.Persistence.Config;
+    using Microsoft.EntityFrameworkCore;
+    using System.Linq;
+
     public class AgendaRepository : IAgendaRepository
     {
+        private readonly AgentaContext _context;
+        public AgendaRepository(AgentaContext _context)
+        {
+            this._context = _context ?? throw new ArgumentNullException(nameof(_context));
+        }
         public Task<Agenda> Editar(Agenda agenda)
         {
             throw new NotImplementedException();
@@ -18,29 +27,32 @@ namespace AgendaWS.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Agenda>> Listar()
+        public async Task<IEnumerable<Agenda>> Listar()
         {
-            throw new NotImplementedException();
+            return await _context.Agenda.AsNoTracking().ToListAsync();
+            
         }
 
-        public Task<Agenda> Obter(int idAgenda)
+        public async Task<Agenda> Obter(int idAgenda)
         {
-            throw new NotImplementedException();
+            return await _context.Agenda.Where((agenda) => agenda.IsAtivo && agenda.Id == idAgenda).FirstOrDefaultAsync();
         }
 
-        public Task<Agenda> ObterPorNome(string nome)
+        public async Task<IEnumerable<Agenda>> ObterPorNome(string nome)
         {
-            throw new NotImplementedException();
+            return await _context.Agenda.Where((agenda) => agenda.IsAtivo && agenda.Nome.Contains(nome)).ToListAsync();
         }
 
-        public Task<Agenda> ObterPorNumero(string numero)
+        public async Task<IEnumerable<Agenda>> ObterPorNumero(string numero)
         {
-            throw new NotImplementedException();
+            return await _context.Agenda.Where((agenda) => agenda.IsAtivo && agenda.Numero.Contains(numero)).ToListAsync();
         }
 
-        public Task<Agenda> Salvar(Agenda agenda)
+        public async Task<Agenda> Salvar(Agenda agenda)
         {
-            throw new NotImplementedException();
+            await  _context.AddAsync(agenda);
+            await  _context.SaveChangesAsync();
+            return agenda;
         }
     }
 }

@@ -9,16 +9,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
-
+using Microsoft.EntityFrameworkCore;
 namespace AgendaWS
 {
     using AgendaWS.Domain.Models;
     using AgendaWS.Domain.Repositories;
     using AgendaWS.Domain.Services;
     using AgendaWS.Middlewares;
+    using AgendaWS.Persistence.Config;
     using AgendaWS.Persistence.Repositories;
     using AgendaWS.Service;
     using AgendaWS.Validators;
+    
 
     public class Startup
     {
@@ -42,6 +44,7 @@ namespace AgendaWS
             
             services.AddSingleton(_ => Configuration);
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+            services.AddDbContext<AgentaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AgendaWS_CS")));
             AddIoCRepositories(services);
             AddIoCServices(services);
             AddIocValidations(services);

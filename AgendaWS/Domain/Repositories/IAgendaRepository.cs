@@ -11,7 +11,7 @@ namespace AgendaWS.Domain.Repositories
         Task<bool> Excluir(int idAgenda);
         Task<IEnumerable<Agenda>> Listar();
         Task<Agenda> Obter(int idAgenda);
-        Task<Agenda> ObterPorNome(string  nome);
-        Task<Agenda> ObterPorNumero(string numero);
+        Task<IEnumerable<Agenda>> ObterPorNome(string  nome);
+        Task<IEnumerable<Agenda>> ObterPorNumero(string numero);
     }
 }
