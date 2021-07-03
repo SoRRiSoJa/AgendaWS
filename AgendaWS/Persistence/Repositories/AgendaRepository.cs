@@ -6,6 +6,7 @@ namespace AgendaWS.Persistence.Repositories
 {
     using AgendaWS.Domain.Models;
     using AgendaWS.Domain.Repositories;
+    using AgendaWS.Middlewares;
     using AgendaWS.Persistence.Config;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
@@ -17,9 +18,20 @@ namespace AgendaWS.Persistence.Repositories
         {
             this._context = _context ?? throw new ArgumentNullException(nameof(_context));
         }
-        public Task<Agenda> Editar(Agenda agenda)
+        public async Task<Agenda> Editar(Agenda agenda)
         {
-            throw new NotImplementedException();
+            var agendaDb = await _context.Agenda.FirstOrDefaultAsync((ag) => ag.Id == agenda.Id);
+            if (agendaDb==null)
+            {
+                throw new HttpResponseException(404, "Registro não encontrado.");
+            }
+            
+            agendaDb.Nome = agenda.Nome;
+            agendaDb.Numero = agenda.Numero;
+            _context.SaveChanges();
+            
+            return agendaDb;   
+            
         }
 
         public Task<bool> Excluir(int idAgenda)
@@ -50,8 +62,8 @@ namespace AgendaWS.Persistence.Repositories
 
         public async Task<Agenda> Salvar(Agenda agenda)
         {
-            await  _context.AddAsync(agenda);
-            await  _context.SaveChangesAsync();
+              await _context.AddAsync(agenda);
+              _context.SaveChanges();
             return agenda;
         }
     }

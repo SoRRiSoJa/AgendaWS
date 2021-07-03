@@ -12,6 +12,7 @@ namespace AgendaWS.Domain.Models
             IsAtivo = true;
         }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Codigo")]
         public int Id { get; set; }
         [Column("Nome")]
