@@ -20,7 +20,7 @@ namespace AgendaWS.Persistence.Repositories
         }
         public async Task<Agenda> Editar(Agenda agenda)
         {
-            var agendaDb = await _context.Agenda.FirstOrDefaultAsync((ag) => ag.Id == agenda.Id);
+            var agendaDb = await _context.Agenda.FirstOrDefaultAsync((ag) => ag.Id == agenda.Id && ag.IsAtivo);
             if (agendaDb == null)
             {
                 throw new HttpResponseException(404, "Registro não encontrado.");
@@ -36,7 +36,7 @@ namespace AgendaWS.Persistence.Repositories
 
         public async Task<bool> Excluir(int idAgenda)
         {
-            var agendaDb = await _context.Agenda.FirstOrDefaultAsync((ag) => ag.Id == idAgenda);
+            var agendaDb = await _context.Agenda.FirstOrDefaultAsync((ag) => ag.Id == idAgenda && ag.IsAtivo);
             if (agendaDb == null)
             {
                 throw new HttpResponseException(404, "Registro não encontrado.");
@@ -48,7 +48,7 @@ namespace AgendaWS.Persistence.Repositories
 
         public async Task<IEnumerable<Agenda>> Listar()
         {
-            return await _context.Agenda.AsNoTracking().ToListAsync();
+            return await _context.Agenda.Where((ag)=>ag.IsAtivo).AsNoTracking().ToListAsync();
 
         }
 
