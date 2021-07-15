@@ -34,9 +34,16 @@ namespace AgendaWS.Persistence.Repositories
             
         }
 
-        public Task<bool> Excluir(int idAgenda)
+        public async  Task<bool> Excluir(int idAgenda)
         {
-            throw new NotImplementedException();
+            var agendaDb = await _context.Agenda.FirstOrDefaultAsync((ag) => ag.Id == idAgenda);
+            if (agendaDb == null)
+            {
+                throw new HttpResponseException(404, "Registro não encontrado.");
+            }
+            agendaDb.IsAtivo = false;
+            _context.SaveChanges();
+            return true;
         }
 
         public async Task<IEnumerable<Agenda>> Listar()
