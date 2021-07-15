@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AgendaWS.Middlewares
 {
-    public class HttpResponseException:Exception
+    public class HttpResponseException : Exception
     {
 
         public readonly Dictionary<string, string[]> Erros;

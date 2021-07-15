@@ -1,14 +1,14 @@
-﻿using AgendaWS.Domain.Models;
-using AgendaWS.Domain.Repositories;
-using AgendaWS.Domain.Services;
-using AgendaWS.Middlewares;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace AgendaWS.Service
 {
+    using AgendaWS.Domain.Models;
+    using AgendaWS.Domain.Repositories;
+    using AgendaWS.Domain.Services;
+    using AgendaWS.Middlewares;
+
     public class AgendaService : IAgendaService
     {
         private readonly IAgendaRepository _agendaRepository;
@@ -68,7 +68,7 @@ namespace AgendaWS.Service
             return await _agendaRepository.ObterPorNumero(numero);
         }
 
-        public  async Task<Agenda> Salvar(Agenda agenda)
+        public async Task<Agenda> Salvar(Agenda agenda)
         {
             if (agenda == null)
             {

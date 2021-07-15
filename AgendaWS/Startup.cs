@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
-using Microsoft.EntityFrameworkCore;
 namespace AgendaWS
 {
     using AgendaWS.Domain.Models;
@@ -20,7 +20,7 @@ namespace AgendaWS
     using AgendaWS.Persistence.Repositories;
     using AgendaWS.Service;
     using AgendaWS.Validators;
-    
+
 
     public class Startup
     {
@@ -35,13 +35,13 @@ namespace AgendaWS
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers().AddFluentValidation(); 
+            services.AddControllers().AddFluentValidation();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AgendaWS", Version = "v1" });
             });
-            
+
             services.AddSingleton(_ => Configuration);
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddDbContext<AgentaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AgendaWS_CS")));
@@ -49,7 +49,7 @@ namespace AgendaWS
             AddIoCServices(services);
             AddIocValidations(services);
             services.AddHttpContextAccessor();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,14 +61,14 @@ namespace AgendaWS
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgendaWS v1"));
             }
-            
+
             var supportedCultures = new[] { new CultureInfo("pt-BR") };
             app.UseRequestLocalization(new RequestLocalizationOptions()
             {
                 DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
-            }); 
+            });
 
             app.UseHttpsRedirection();
 
@@ -81,16 +81,16 @@ namespace AgendaWS
                 endpoints.MapControllers();
             });
         }
-        
-        private void AddIoCRepositories(IServiceCollection services) 
+
+        private void AddIoCRepositories(IServiceCollection services)
         {
             services.AddTransient<IAgendaRepository, AgendaRepository>();
         }
-        private void AddIocValidations(IServiceCollection services) 
+        private void AddIocValidations(IServiceCollection services)
         {
             services.AddTransient<IValidator<Agenda>, AgendaValidator>();
         }
-        private void AddIoCServices(IServiceCollection services) 
+        private void AddIoCServices(IServiceCollection services)
         {
             services.AddTransient<IAgendaService, AgendaService>();
         }

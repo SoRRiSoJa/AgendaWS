@@ -3,7 +3,7 @@
 namespace AgendaWS.Validators
 {
     using AgendaWS.Domain.Models;
-    public class AgendaValidator:AbstractValidator<Agenda>
+    public class AgendaValidator : AbstractValidator<Agenda>
     {
         public AgendaValidator()
         {

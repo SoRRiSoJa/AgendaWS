@@ -15,7 +15,7 @@ namespace AgendaWS.Controllers
         private readonly IAgendaService _agendaService;
         public AgendaController(IAgendaService _agendaService)
         {
-        
+
             this._agendaService = _agendaService ?? throw new ArgumentNullException(nameof(_agendaService));
         }
         [HttpPost]
@@ -41,7 +41,7 @@ namespace AgendaWS.Controllers
         [HttpGet("numero/{numeroTelefone}")]
         public async Task<ActionResult<IEnumerable<Agenda>>> ConsultarPorNumero(string numeroTelefone)
         {
-            return Ok( await _agendaService.ObterPorNumero(numeroTelefone));
+            return Ok(await _agendaService.ObterPorNumero(numeroTelefone));
         }
         [HttpGet("nome/{nome}")]
         public async Task<ActionResult<IEnumerable<Agenda>>> ConsultarPorNome(string nome)
