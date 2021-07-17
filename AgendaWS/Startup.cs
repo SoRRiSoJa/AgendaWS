@@ -44,7 +44,7 @@ namespace AgendaWS
 
             services.AddSingleton(_ => Configuration);
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
-            services.AddDbContext<AgentaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AgendaWS_CS")));
+            services.AddDbContext<AgentaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AgendaWS")));
             AddIoCRepositories(services);
             AddIoCServices(services);
             AddIocValidations(services);
