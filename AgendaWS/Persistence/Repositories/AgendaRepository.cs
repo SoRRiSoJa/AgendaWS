@@ -34,7 +34,7 @@ namespace AgendaWS.Persistence.Repositories
 
         }
 
-        public async Task<bool> Excluir(int idAgenda)
+        public async Task<bool> Excluir(decimal idAgenda)
         {
             var agendaDb = await _context.Agenda.FirstOrDefaultAsync((ag) => ag.Id == idAgenda && ag.IsAtivo);
             if (agendaDb == null)
@@ -48,11 +48,21 @@ namespace AgendaWS.Persistence.Repositories
 
         public async Task<IEnumerable<Agenda>> Listar()
         {
-            return await _context.Agenda.Where((ag)=>ag.IsAtivo).AsNoTracking().ToListAsync();
+            try
+            {
+                var minhaRola = await _context.Agenda.Where((agenda)=>agenda.IsAtivo).ToListAsync();
+                return minhaRola;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
 
         }
 
-        public async Task<Agenda> Obter(int idAgenda)
+        public async Task<Agenda> Obter(decimal idAgenda)
         {
             return await _context.Agenda.Where((agenda) => agenda.IsAtivo && agenda.Id == idAgenda).FirstOrDefaultAsync();
         }

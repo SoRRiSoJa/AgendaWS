@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AgendaWS.Domain.Models
 {
 
-    [Table("Contato")]
+    [Table("contato")]
     public class Agenda
     {
         public Agenda()
@@ -13,15 +13,15 @@ namespace AgendaWS.Domain.Models
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Codigo")]
-        public int Id { get; set; }
-        [Column("Nome")]
+        [Column("codigo")]
+        public decimal Id { get; set; }
+        [Column("nome")]
         public string Nome { get; set; }
-        [Column("Numero")]
+        [Column("numero")]
         public string Numero { get; set; }
-        [Column("Ref")]
-        public int Ref { get; set; }
-        [Column("IsAtivo")]
+        [Column("ref")]
+        public decimal Ref { get; set; }
+        [Column("isAtivo")]
         public bool IsAtivo { get; set; }
     }
 }

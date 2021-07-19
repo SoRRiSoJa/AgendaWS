@@ -8,7 +8,7 @@ namespace AgendaWS.Domain.Services
     {
         Task<Agenda> Salvar(Agenda agenda);
         Task<Agenda> Editar(Agenda agenda);
-        Task<bool> Excluir(int idAgenda);
+        Task<bool> Excluir(decimal idAgenda);
         Task<IEnumerable<Agenda>> ObterPorNome(string nome);
         Task<IEnumerable<Agenda>> ObterPorNumero(string numero);
         Task<IEnumerable<Agenda>> Listar();

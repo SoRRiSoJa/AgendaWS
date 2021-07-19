@@ -31,7 +31,7 @@ namespace AgendaWS.Service
             return await _agendaRepository.Editar(agenda);
         }
 
-        public async Task<bool> Excluir(int idAgenda)
+        public async Task<bool> Excluir(decimal idAgenda)
         {
             var agendaAntiga = await _agendaRepository.Obter(idAgenda);
             if (agendaAntiga == null)

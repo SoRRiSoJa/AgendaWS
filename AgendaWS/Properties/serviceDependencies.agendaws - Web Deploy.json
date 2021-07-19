@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/agendawsapi/apis/agendaws",
+      "type": "apis.azure"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/agendaws-sql-srv/databases/agendaws-sql-db-dev",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:AgendaWS",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
